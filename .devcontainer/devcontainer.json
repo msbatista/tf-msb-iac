@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.5/containers/ubuntu
+{
+  "name": "Ubuntu",
+  "runArgs": [
+    "--init",
+    "--env-file",
+    "${localWorkspaceFolder}/.devcontainer/.env"
+  ],
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
+    // Use hirsute or bionic on local arm64/Apple Silicon.
+    "args": {
+      "VARIANT": "focal"
+    }
+  },
+  // Set *default* container specific settings.json values on container create.
+  "settings": {},
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "ms-azuretools.vscode-azureterraform",
+    "bridgecrew.checkov",
+    "hashicorp.terraform",
+    "streetsidesoftware.code-spell-checker"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "src/applications/influxdb_resource_on_linux_vm/terraform-startup.sh && az login",
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode",
+  "features": {
+    "azure-cli": "latest",
+    "terraform": {
+      "terragrunt": "latest",
+      "tflint": "latest",
+      "terraform": "latest"
+    }
+  }
+}
